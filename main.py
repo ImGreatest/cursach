@@ -2,7 +2,6 @@ import sys
 from PySide6.QtWidgets import QApplication
 from pages.admin_window import AdminWindow
 from pages.auth import Auth
-from pages.cook_panel import CookPanel
 
 
 def main():

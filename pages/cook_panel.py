@@ -13,6 +13,7 @@ class CookPanel(QMainWindow):
         QMainWindow.__init__(self)
 
         self.order_service = OrderService()
+        self.status_service = StatusService()
 
         self.setMinimumSize(QSize(940, 800))
         self.setWindowTitle('Login window')
@@ -53,7 +54,7 @@ class CookPanel(QMainWindow):
         self.table.setHorizontalHeaderLabels(['ID', 'Статус', 'Начало', 'Окончание'])
         for i, v in enumerate(self.order_service.get()):
             self.table.setItem(i, 0, QTableWidgetItem(str(v['id'])))
-            self.table.setItem(i, 1, QTableWidgetItem(str(v['status_id'])))
+            self.table.setItem(i, 1, QTableWidgetItem(str(self.status_service.get_by_id(v['status_id'])['name'])))
             self.table.setItem(i, 2, QTableWidgetItem(str(v['start_order'])))
             self.table.setItem(i, 3, QTableWidgetItem(str(v['end_order'])))
 
@@ -74,12 +75,12 @@ class CookPanel(QMainWindow):
 
     def callForm(self, state):
         if state:
-            f = FormChangeStatus()
+            f = FormChangeStatusCook()
             self.window.append(f)
             f.show()
 
 
-class FormChangeStatus(QMainWindow):
+class FormChangeStatusCook(QMainWindow):
     def __init__(self):
         self.window = []
         QMainWindow.__init__(self)

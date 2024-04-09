@@ -32,6 +32,17 @@ class StatusService(Service):
             "name": list(rows.values()),
         }
 
+    def get_by_id(self, id: str):
+        conn, cur = self.open_connection()
+        cur.execute("SELECT * FROM status WHERE id=%s", (id,))
+        rows = cur.fetchone()
+        cur.close()
+        conn.close()
+        return {
+            "id": rows[0],
+            "name": rows[1],
+        }
+
     def get_by_name(self, name: str):
         conn, cur = self.open_connection()
         cur.execute("SELECT * FROM status WHERE name=%s", (name,))

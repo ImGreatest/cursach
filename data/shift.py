@@ -15,11 +15,11 @@ class ShiftService(Service):
         cursor = connection.cursor()
         return connection, cursor
 
-    def create(self, data: SHIFT_REQ):
+    def create(self, date, start, end):
         conn, cur = self.open_connection()
-        cur.execute('INSERT INTO shift (date_shift, start_shift, end_shift) VALUES (%s, %s, %s)', (data['date_shift'],
-                                                                                                   data['start_shift'],
-                                                                                                   data['end_shift']))
+        cur.execute('INSERT INTO shift (date_shift, start_shift, end_shift) VALUES (%s, %s, %s)', (date,
+                                                                                                   start,
+                                                                                                   end))
         conn.commit()
         cur.close()
         conn.close()
@@ -35,6 +35,19 @@ class ShiftService(Service):
     def get_by_id(self, id: str):
         conn, cur = self.open_connection()
         cur.execute("SELECT * FROM shift WHERE id=%s", (id,))
+        rows = cur.fetchone()
+        cur.close()
+        conn.close()
+        return {
+            "id": rows[0],
+            "date_shift": rows[1],
+            "start_shift": rows[2],
+            "end_shift": rows[3]
+        }
+
+    def get_by(self, date: str, start: str, end: str):
+        conn, cur = self.open_connection()
+        cur.execute("SELECT * FROM shift WHERE date_shift=%s AND start_shift=%s AND end_shift=%s", (date, start, end))
         rows = cur.fetchone()
         cur.close()
         conn.close()

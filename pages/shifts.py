@@ -14,8 +14,6 @@ class ShiftPanel(QMainWindow):
 
         self.order_service = OrderService()
 
-        print(self.order_service.get_by_status())
-
     def __repr__(self):
         pass
 

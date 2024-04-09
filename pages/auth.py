@@ -55,8 +55,10 @@ class Auth(QMainWindow):
         self.show()
 
     def validate(self):
-        if len(self.login.text()) <= 3 or len(self.password.text()) <= 3:
+        if len(self.login.text()) >= 1 or len(self.password.text()) >= 1:
+            print(self.login.text(), self.password.text())
             user = self.user_service.get_by_name(self.login.text(), self.password.text())
+            print('ssssssss', user)
             if user:
                 role = self.role_service.get_by_id(user['role'])
                 return role['name']
@@ -71,6 +73,7 @@ class Auth(QMainWindow):
 
     def on_click(self):
         role = self.validate()
+        print(role)
         if role == ROLES.get('admin'):
             self.destroy()
             a = AdminWindow()

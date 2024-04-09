@@ -24,25 +24,31 @@ class RoleService(Service):
     def get(self):
         conn, cur = self.open_connection()
         cur.execute('SELECT * FROM "role"')
-        rows = {row[0]: row[1] for row in cur.fetchall()}
+        rows = cur.fetchall()
         cur.close()
         conn.close()
-        print(rows)
-        return {
-            "id": list(rows.keys()),
-            "name": list(rows.values()),
-        }
+        result = []
+        for row in rows:
+            user_data = {
+                "id": row[0],
+                "name": row[1],
+            }
+            result.append(user_data)
+        try:
+            return result
+        except:
+            return None
 
     def get_by_id(self, id: str):
         conn, cur = self.open_connection()
-        print(id)
         cur.execute('SELECT * FROM "role" WHERE id=%s', (id,))
         rows = cur.fetchone()
+        print(rows)
         cur.close()
         conn.close()
         return {
             "id": rows[0],
-            "name": rows[-1],
+            "name": rows[1],
         }
 
     def get_by_name(self, name: str):

@@ -15,10 +15,10 @@ class UserService(Service):
         cursor = connection.cursor()
         return connection, cursor
 
-    def create(self, data: USER_REQ):
+    def create(self, data: dict):
         conn, cur = self.open_connection()
-        cur.execute('INSERT INTO "user" (name, role, password) VALUES (%s, %s, %s)',
-                    (data['name'], data['role'], data['password']))
+        cur.execute('INSERT INTO "user" ("name", "role", "password", "status") VALUES (%s, %s, %s, %s)',
+                    (data['name'], data['role'], data['password'], data['status']))
         conn.commit()
         cur.close()
         conn.close()
@@ -47,6 +47,17 @@ class UserService(Service):
         except:
             return None
 
+    def count(self):
+        conn, cur = self.open_connection()
+        cur.execute('SELECT COUNT(id) FROM "user"')
+        rows = cur.fetchone()
+        cur.close()
+        conn.close()
+        try:
+            return rows
+        except:
+            return None
+
     def get_by_id(self, id: str):
         conn, cur = self.open_connection()
         cur.execute('SELECT * FROM "user" WHERE id=%s', (id,))
@@ -56,22 +67,22 @@ class UserService(Service):
         try:
             return {
                 "id": rows[0],
-                "name": rows[1],
-                "role": rows[2],
-                "createdAt": rows[3],
-                "updateAt": rows[4],
-                "deletedAt": rows[5],
-                "password": rows[6],
-                "status": rows[7],
+                "name": rows[7],
+                "role": rows[1],
+                "createdAt": rows[2],
+                "updateAt": rows[3],
+                "deletedAt": rows[4],
+                "password": rows[5],
+                "status": rows[6],
             }
         except:
             return None
 
     def get_by_name(self, name: str, password: str):
         conn, cur = self.open_connection()
-        cur.execute('SELECT * FROM "user" WHERE name=%s AND password=%s', (name, password))
+        cur.execute('SELECT * FROM "user" WHERE "name"=%s AND "password"=%s', (name, password))
         rows = cur.fetchone()
-        print(rows)
+        print('sss', rows)
         cur.close()
         conn.close()
         try:
