@@ -9,8 +9,6 @@ def main():
     app = QApplication(sys.argv)
     auth_window = Auth()
     window.append(auth_window)
-    # admin_window = AdminWindow()
-    # window.append(admin_window)
     sys.exit(app.exec())
 
 
