@@ -29,7 +29,13 @@ class AdminWindow(QMainWindow):
 
         self.size = QSize(940, 800)
         self.setFixedSize(self.size)
-        self.setWindowTitle('AdminWindow')
+        self.setWindowTitle('Админская панель')
+
+        # m_myWidget = QWidget(self)
+        # m_myWidget.setGeometry(100, 100, 940, 700)
+        # m_myWidget.setAttribute(Qt.WA_StyledBackground)
+        # m_myWidget.setStyleSheet('background-color: red;')
+        # m_myWidget.show()
 
         menuBar = QMenuBar(self)
         self.setMenuBar(menuBar)
