@@ -26,4 +26,3 @@ class ErrorException(QMainWindow):
 
     def clickMetod(self):
         self.close()
-
