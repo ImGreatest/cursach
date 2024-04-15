@@ -1,7 +1,6 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 from PySide6.QtCore import *
-
 from data.department import DepartmentService
 from data.discipline import DisciplineService
 from data.student import StudentService

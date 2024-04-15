@@ -1,0 +1,31 @@
+CREATE TABLE Student (
+    id INTEGER PRIMARY KEY,
+    number_of_student_book INTEGER,
+    full_name TEXT,
+    group_name TEXT,
+    city TEXT
+);
+
+CREATE TABLE Department (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    phone TEXT
+);
+
+CREATE TABLE Discipline (
+    subject_code INTEGER PRIMARY KEY,
+    subject_name TEXT,
+    hours INTEGER,
+    student_id int,
+    foreign key (student_id) references Student(id)
+);
+
+CREATE TABLE Teacher (
+    teacher_number INTEGER PRIMARY KEY,
+    full_name TEXT,
+    academic_degree TEXT,
+    department_id INTEGER,
+    discipline_id INTEGER,
+    FOREIGN KEY (department_id) REFERENCES Department(id),
+    FOREIGN KEY (discipline_id) references Discipline(subject_code)
+);

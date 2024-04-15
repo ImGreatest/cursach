@@ -21,8 +21,5 @@ class ErrorException(QMainWindow):
         button.resize(200, 32)
         button.move(80, 90)
 
-    def __repr__(self):
-        return "".format()
-
     def clickMetod(self):
         self.close()
