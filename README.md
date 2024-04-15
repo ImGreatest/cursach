@@ -1,3 +1,3 @@
 pip install PySide6
-pip install dotenv_python
+pip install python-decouple
 pip install psycopg2
